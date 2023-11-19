@@ -1,10 +1,11 @@
 #include <stdio.h>
 #include <stdbool.h>
+#include <getopt.h>
 
 typedef struct {
 //-------------------------------------------ВАЖНО-------------------------------------------
     bool flagE; //Шаблон
-    bool flagIx; //Выводит все совпадающие строки игнорируя различия регистра. (я - Я)
+    bool flagI; //Выводит все совпадающие строки игнорируя различия регистра. (я - Я)
     bool flagV; //Показывает только несовпавшие строки.
     bool flagC; //Выводит только количество совпадающих строк.
     bool flagL; //Выводит только совпадающие файлы.
@@ -18,8 +19,26 @@ typedef struct {
     Flags flags;
 
 
+Flags readFlags(int argc, char* argv[]) {
+    int currentFlag = getopt(argc, argv, "eivclnhsfo");
+
+
+    Flags flags = {false, false, false, false, false, false, false, false, false, false};
+
+    for(;currentFlag != -1; currentFlag = getopt(argc, argv, "eivclnhsfo")) {
+        switch (currentFlag) {
+            case 'e':
+                flags.flagE = true;
+                break;
+        }
+ }
+return flags;
+
+}
+
 int main(int argc, char* argv[]) {
-    (void) argc;
-    (void) argv;
+
+    Flags flags = readFlags(argc, argv);
+    printf("%d", flags.flagE);
     return 0;
 }
