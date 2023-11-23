@@ -58,14 +58,14 @@ void catRead(FILE *file, Flags flags, const char *table[static 256]) {
 }
 
 void catOpen(int argc, char* argv[], Flags flags, const char* table[static 256]) {
-    for(char** filename = &argv[1], **end = &argv[argc]; filename != end; ++filename) {
-        if(**filename == '-') {
+    for(char** fileName = &argv[1], **end = &argv[argc]; fileName != end; ++fileName) {
+        if(**fileName == '-') {
             continue;
         }
-        FILE* file = fopen(*filename, "rb");
+        FILE* file = fopen(*fileName, "rb");
         if(errno) {
             fprintf(stderr, "%s", argv[0]);
-            perror(*filename);
+            perror(*fileName);
             continue;
         }
     catRead(file, flags, table);
